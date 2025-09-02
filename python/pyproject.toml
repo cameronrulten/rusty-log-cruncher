@@ -1,7 +1,12 @@
+[build-system]
+requires = ["maturin>=1.5"]
+build-backend = "maturin"
+
 [project]
-name = "rusty-log-cruncher"
+name = "rusty-cruncher"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.12"
-dependencies = []
+description = "Rust-accelerated data rollups with Python bindings"
+requires-python = ">=3.10"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
