@@ -1,18 +1,44 @@
 [package]
 name = "rusty_log_cruncher"
 version = "0.1.0"
-edition = "2021"
+edition = "2025"
+description = "Fast, safe log rollups in Rust with Python bindings"
+license = "MIT"
 
 [lib]
+# Build a Python extension module (cdylib) AND a normal Rust lib (rlib)
 name = "rusty_log_cruncher"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+# Python bindings
 pyo3 = { version = "0.22", features = ["extension-module"] }
-polars = { version = "0.41", features = ["lazy", "csv", "parquet"] }
+# Thin wrappers to convert between Python-Polars <-> Rust-Polars
+pyo3-polars = { version = "0.24", features = ["derive"] }
+#polars = { version = "0.41", features = ["lazy", "csv", "parquet"] }
+# Data engine
+polars = { version = "0.51", features = [
+"lazy", "fmt", "strings", "dtype-datetime", "dtype-categorical"
+] }
+# Parallel compute
 rayon = "1.10"
+# Ergonomic error handling
 anyhow = "1.0"
 thiserror = "1.0"
+# Optional async service (stretch)
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+axum = { version = "0.7", optional = true, features = ["ws"] }
+# CLI
+default-formatter = "0.9" # small helper for nice CLI errors (optional)
+clap = { version = "4.5", features = ["derive"] }
+# Serde for JSON configs
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[features]
+# Build with `--features server` to compile the Axum HTTP service
+server = ["axum"]
 
 [dev-dependencies]
 criterion = "0.5"
+rand = "0.8"

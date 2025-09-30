@@ -1,12 +1,29 @@
 [build-system]
+# maturin builds the Rust crate and installs the Python package in one go
 requires = ["maturin>=1.5"]
 build-backend = "maturin"
 
 [project]
 name = "rusty-cruncher"
 version = "0.1.0"
-description = "Rust-accelerated data rollups with Python bindings"
+description = "Rust-accelerated data rollup / log cruncher with Python bindings"
+readme = "../README.md"
+authors = [{ name = "Cameron Rulten" }]
 requires-python = ">=3.10"
+dependencies = [
+"polars>=1.0",
+"pandas>=2.2",
+"pyarrow>=14",
+"pytest",
+"pytest-benchmark",
+]
 
 [tool.maturin]
+# Tell maturin where the Rust crate lives and what to name the module
+manifest-path = "../rust-crate/Cargo.toml"
+# The compiled module will be `rusty_cruncher/_rusty_cruncher.*.so`
+module-name = "rusty_cruncher._rusty_cruncher"
+# Include this directory as Python source so our __init__.py gets packaged
+python-source = "python"
+# Don't require a Python interpreter at build-time for symbol resolution
 features = ["pyo3/extension-module"]

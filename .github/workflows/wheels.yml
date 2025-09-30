@@ -1,0 +1,23 @@
+name: Wheels
+on:
+push:
+branches: [ main ]
+pull_request:
+
+jobs:
+build:
+strategy:
+matrix:
+os: [ubuntu-latest, macos-latest]
+runs-on: ${{ matrix.os }}
+steps:
+- uses: actions/checkout@v4
+- name: Build wheels with maturin
+uses: PyO3/maturin-action@v1
+with:
+command: build
+args: --release -m rust-crate/Cargo.toml --out dist
+- uses: actions/upload-artifact@v4
+with:
+name: wheels-${{ matrix.os }}
+path: dist
