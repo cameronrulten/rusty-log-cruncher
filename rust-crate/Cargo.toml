@@ -14,10 +14,10 @@ crate-type = ["cdylib", "rlib"]
 # Python bindings
 pyo3 = { version = "0.25", features = ["extension-module", "abi3-py310"] }
 # Thin wrappers to convert between Python-Polars <-> Rust-Polars
-pyo3-polars = { version = "0.24", features = ["derive"] }
+pyo3-polars = { version = "0.24", default-features = false, features = ["derive"] }
 #polars = { version = "0.41", features = ["lazy", "csv", "parquet"] }
 # Data engine
-polars = { version = "0.51", features = [
+polars = { version = "0.51", default-features = false, features = [
 "lazy", "fmt", "strings", "dtype-datetime", "dtype-categorical",
 "parquet","csv", # allow ParquetWriter/CsvReader work
 "dtype-array",   # enables AnyValue::Array and array dtype

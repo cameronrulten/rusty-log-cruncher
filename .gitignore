@@ -1,10 +1,73 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+# -------- Rust / Cargo --------
+target/
+**/target/
+**/*.rs.bk
+# Cargo lock: keep if you want reproducible CLI builds; ignore for libs
+# Uncomment ONE of the two lines below depending on your preference:
+Cargo.lock
+# !Cargo.lock
+
+# -------- Python / uv / maturin --------
 
 # Virtual environments
+**/.venv/
 .venv
+python/.venv/
+.python-version
+.env
+env/
+**/build/
+**/dist/
+**/*.egg-info/
+*.egg
+pip-wheel-metadata/
+.maturin/
+# extension modules (built wheels/so/dylib/pyd)
+/python/rusty_cruncher/_rusty_cruncher.*.so
+/python/rusty_cruncher/_rusty_cruncher.*.dylib
+/python/rusty_cruncher/_rusty_cruncher.*.pyd
+*.whl
+
+# -------- Test / Coverage / Caches --------
+**/__pycache__/
+**/*.py[oc]
+**/.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.pyre/
+**/.cache/
+
+# -------- Notebooks --------
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# -------- VSCode / Editors --------
+.vscode/
+*.code-workspace
+.idea/
+*.swp
+*.swo
+
+# -------- OS / Misc --------
+.DS_Store
+Thumbs.db
+.trash/
+*.log
+
+# -------- Data / Artifacts (optional) --------
+data/
+tmp/
+outputs/
+*.parquet
+*.csv
+*.json
+*.jsonl
+
+# -------- Docker --------
+/**/.dockerignore~
+**/.env.docker
+
+
