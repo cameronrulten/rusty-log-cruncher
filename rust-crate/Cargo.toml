@@ -12,7 +12,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 # Python bindings
-pyo3 = { version = "0.25", features = ["extension-module", "abi3-py310"] }
+pyo3 = { version = "0.25", features = ["abi3-py310"] }
 # Thin wrappers to convert between Python-Polars <-> Rust-Polars
 pyo3-polars = { version = "0.24", default-features = false }
 #polars = { version = "0.41", features = ["lazy", "csv", "parquet"] }
