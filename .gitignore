@@ -26,7 +26,10 @@ pip-wheel-metadata/
 /python/rusty_cruncher/_rusty_cruncher.*.so
 /python/rusty_cruncher/_rusty_cruncher.*.dylib
 /python/rusty_cruncher/_rusty_cruncher.*.pyd
-*.whl
+**/*.whl
+**/*.so
+**/*.dylib
+**/*.pyd
 
 # -------- Test / Coverage / Caches --------
 **/__pycache__/
