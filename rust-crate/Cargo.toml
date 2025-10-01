@@ -18,7 +18,8 @@ pyo3-polars = { version = "0.24", features = ["derive"] }
 #polars = { version = "0.41", features = ["lazy", "csv", "parquet"] }
 # Data engine
 polars = { version = "0.51", features = [
-"lazy", "fmt", "strings", "dtype-datetime", "dtype-categorical"
+"lazy", "fmt", "strings", "dtype-datetime", "dtype-categorical",
+"parquet","csv" # allow ParquetWriter/CsvReader work
 ] }
 # Parallel compute
 rayon = "1.10"
