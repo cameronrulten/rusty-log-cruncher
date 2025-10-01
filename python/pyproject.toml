@@ -24,6 +24,6 @@ manifest-path = "../rust-crate/Cargo.toml"
 # The compiled module will be `rusty_cruncher/_rusty_cruncher.*.so`
 module-name = "rusty_cruncher._rusty_cruncher"
 # Include this directory as Python source so our __init__.py gets packaged
-python-source = "python"
+python-source = "."
 # Don't require a Python interpreter at build-time for symbol resolution
 features = ["pyo3/extension-module"]
