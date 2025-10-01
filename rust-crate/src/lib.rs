@@ -51,7 +51,9 @@ pub(crate) fn rollup_impl(
             .then((val.clone() - col("roll_mean")) / col("roll_std"))
             .otherwise(lit(0.0))
             .alias("zscore")])
-        .with_columns([col("zscore").abs().gt(lit(z_thr)).alias("is_anomaly")]);
+        .with_columns([ (col("zscore").gt(lit(z_thr)).or(col("zscore").lt(lit(-z_thr))))
+            .alias("is_anomaly")
+        ]);
 
     Ok(lf.collect()?)
 }
@@ -87,11 +89,10 @@ fn _rusty_cruncher(_py: Python, m: &Bound<PyModule>) -> PyResult<()> {
 pub fn read_logs_parallel(paths: &[String]) -> Result<DataFrame> {
     use rayon::prelude::*;
 
+    // Read all CSVs in parallel (simple, robust)
     let mut dfs: Vec<DataFrame> = paths
         .par_iter()
         .map(|p| -> Result<DataFrame> {
-            // Basic heuristic: treat everything as CSV for now.
-            // (Add JSON reader once you want it; needs extra feature gates.)
             let df = CsvReadOptions::default()
                 .with_has_header(true)
                 .with_infer_schema_length(Some(10_000))
@@ -101,8 +102,17 @@ pub fn read_logs_parallel(paths: &[String]) -> Result<DataFrame> {
         })
         .collect::<Result<Vec<_>>>()?;
 
-    Ok(polars::functions::concat_df(&mut dfs)?)
+    // Vertically stack them without using private concat_df
+    let mut acc = match dfs.pop() {
+        Some(df) => df,
+        None => return Err(anyhow!("no input files provided")),
+    };
+    for df in dfs.into_iter() {
+        acc.vstack_mut(&df)?; // appends rows; requires compatible schemas
+    }
+    Ok(acc)
 }
+
 
 pub fn rollup_on_files(
     paths: &[String],
