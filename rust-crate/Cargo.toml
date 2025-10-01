@@ -21,8 +21,8 @@ polars = { version = "0.51", features = [
 "lazy", "fmt", "strings", "dtype-datetime", "dtype-categorical",
 "parquet","csv", # allow ParquetWriter/CsvReader work
 "dtype-array",   # enables AnyValue::Array and array dtype
-"object",        # Python-object dtype interop (often pulled by pyo3-polars)
-"pyarrow"        # pyarrow interop used by the python bindings
+"csv", "parquet"  # enable CSV and Parquet read/write
+#"object",        # Python-object dtype interop (often pulled by pyo3-polars)
 ] }
 # Parallel compute
 rayon = "1.10"
