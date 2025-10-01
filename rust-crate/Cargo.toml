@@ -22,6 +22,8 @@ polars = { version = "0.51", default-features = false, features = [
 "parquet","csv", # allow ParquetWriter/CsvReader work
 "dtype-array",   # enables AnyValue::Array and array dtype
 "csv", "parquet"  # enable CSV and Parquet read/write
+"rolling_window",    # <- needed for rolling_* exprs
+"diagonal_concat"    # <- needed for functions::concat_df
 #"object",        # Python-object dtype interop (often pulled by pyo3-polars)
 ] }
 # Parallel compute
