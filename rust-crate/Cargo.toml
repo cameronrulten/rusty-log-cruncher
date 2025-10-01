@@ -1,5 +1,5 @@
 [package]
-name = "rusty_log_cruncher"
+name = "rusty_cruncher"
 version = "0.1.0"
 edition = "2024"
 description = "Fast, safe log rollups in Rust with Python bindings"
@@ -7,7 +7,7 @@ license = "MIT"
 
 [lib]
 # Build a Python extension module (cdylib) AND a normal Rust lib (rlib)
-name = "rusty_log_cruncher"
+name = "rusty_cruncher"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
@@ -30,7 +30,7 @@ thiserror = "1.0"
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 axum = { version = "0.7", optional = true, features = ["ws"] }
 # CLI
-default-formatter = "0.9" # small helper for nice CLI errors (optional)
+#default-formatter = "0.9" # small helper for nice CLI errors (optional)
 clap = { version = "4.5", features = ["derive"] }
 # Serde for JSON configs
 serde = { version = "1", features = ["derive"] }
