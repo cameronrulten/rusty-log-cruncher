@@ -12,14 +12,17 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 # Python bindings
-pyo3 = { version = "0.22", features = ["extension-module"] }
+pyo3 = { version = "0.25", features = ["extension-module", "abi3-py310"] }
 # Thin wrappers to convert between Python-Polars <-> Rust-Polars
 pyo3-polars = { version = "0.24", features = ["derive"] }
 #polars = { version = "0.41", features = ["lazy", "csv", "parquet"] }
 # Data engine
 polars = { version = "0.51", features = [
 "lazy", "fmt", "strings", "dtype-datetime", "dtype-categorical",
-"parquet","csv" # allow ParquetWriter/CsvReader work
+"parquet","csv", # allow ParquetWriter/CsvReader work
+"dtype-array",   # enables AnyValue::Array and array dtype
+"object",        # Python-object dtype interop (often pulled by pyo3-polars)
+"pyarrow"        # pyarrow interop used by the python bindings
 ] }
 # Parallel compute
 rayon = "1.10"
